@@ -13,10 +13,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="uad-uW-BNa">
             <objects>
-                <viewController id="ehH-f4-zHs" sceneMemberID="viewController">
+                <viewController id="ehH-f4-zHs" customClass="LoginViewController" customModule="Pin_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zjd-G3-6Kz"/>
                         <viewControllerLayoutGuide type="bottom" id="y5s-7H-KKo"/>
@@ -50,12 +50,18 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginButtonTapped:" destination="ehH-f4-zHs" eventType="touchUpInside" id="Mfj-Mg-TwT"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQy-GB-2X6">
                                 <rect key="frame" x="53.5" y="438" width="213.5" height="43.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="tintColor" red="0.0091119781136512756" green="0.70185786485671997" blue="0.89394766092300415" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Sign Up"/>
+                                <connections>
+                                    <action selector="signUpButtonTapped:" destination="ehH-f4-zHs" eventType="touchUpInside" id="NEi-X4-W4r"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dhw-lW-37W">
                                 <rect key="frame" x="53.5" y="387" width="213.5" height="43"/>
@@ -91,6 +97,10 @@
                             <constraint firstItem="Gc0-Nv-Sxs" firstAttribute="width" secondItem="Qcd-fz-AVH" secondAttribute="width" id="xN3-qp-rk8"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="Qcd-fz-AVH" id="Ioc-mS-c26"/>
+                        <outlet property="passwordTextField" destination="Gc0-Nv-Sxs" id="mtn-iC-mDk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vop-34-BLk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -99,7 +109,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Ixb-h4-rh1">
             <objects>
-                <tabBarController id="COv-y4-8ns" sceneMemberID="viewController">
+                <tabBarController restorationIdentifier="tabBarViewController" storyboardIdentifier="tabBarViewController" id="COv-y4-8ns" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="wWA-Ns-yOT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -163,7 +173,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ESp-ed-f0Y" id="2oI-4B-jFE">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
