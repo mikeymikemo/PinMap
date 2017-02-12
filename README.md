@@ -1,2 +1,4 @@
 # PinMap
-Add a link to your pinned location and view other pins placed. 
+
+View a map of locations of other Udacity students.
+Add a pin of your own with an attached URL.
