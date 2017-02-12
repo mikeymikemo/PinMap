@@ -18,14 +18,6 @@ class Client {
     //==================================================
     // MARK: Udacity Functions
     //==================================================
-    
-    
-    func authenticateWith(username: String, password: String, completionHandlerForAuth: @escaping (_ success: Bool, _ error: Error?)-> Void){
-        
-    }
-    func getSessionID(username: String, password: String, completionHandlerForSessionID: @escaping (_ success: Bool, _ sessionID: String?, _ error: Error?) -> Void) {
-        
-    }
 
 func URLForUdacity(withPathExtension: String? = nil) -> URL {
     var components = URLComponents()
@@ -41,6 +33,43 @@ func URLForUdacity(withPathExtension: String? = nil) -> URL {
     
     return components.url! as URL
 }
+    
+    func logout(completionHandlerForLoggingOut: @escaping (_ success: Bool, _ error: String) -> Void) {
+        
+        let url = NSURL(string: Constants.Udacity.sessionURL)
+        var request = URLRequest(url: url as! URL)
+        request.httpMethod = Constants.HTTPMethods.delete
+        
+        let task = self.session.dataTask(with: request as URLRequest) { (data, response, error) in
+            guard (error == nil) else {
+                completionHandlerForLoggingOut(false, (error?.localizedDescription)!)
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            let range = Range(5...data.count)
+            
+            let newData = NSString(data: data.subdata(in: range), encoding: String.Encoding.utf8.rawValue)
+            
+            guard let newdata = newData?.data(using: String.Encoding.utf8.rawValue) else {
+                return
+            }
+            
+            var parsedJSON: [String: Any]!
+            do {
+                parsedJSON = try JSONSerialization.jsonObject(with: newdata, options: .allowFragments) as! [String : Any]
+            }
+            catch {
+                return
+            }
+            
+            completionHandlerForLoggingOut(true, "")
+        }
+        task.resume()
+    }
 
 //==================================================
 // MARK: HTTP Functions
