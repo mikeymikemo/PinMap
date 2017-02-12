@@ -90,13 +90,14 @@ func postForUdacity(urlAsString: String, httpMessageBody: String, completionHand
     request.httpMethod = Constants.HTTPMethods.post
     request.addValue(Constants.Extensions.json, forHTTPHeaderField: "Accept")
     request.addValue(Constants.Extensions.json, forHTTPHeaderField: "Content-Type")
-    //        request.httpBody = urlBody.data(using: String.Encoding.utf8)
+            request.httpBody = httpMessageBody.data(using: String.Encoding.utf8)
     
-    let task = self.session.dataTask(with: request as URLRequest){(data,response,error) in
+      let task = URLSession.shared.dataTask(with: request as URLRequest){(data,response,error) in
         
         var errorString = ""
         guard error == nil else {
-            completionHandlerForPost("", (error?.localizedDescription)!)
+            errorString = (error?.localizedDescription)!
+            completionHandlerForPost("", errorString)
             return
         }
         
@@ -135,8 +136,10 @@ func getForUdacity(urlAsString: String, completionHandlerForGet: @escaping(_ res
     let url = NSURL(string: urlAsString)
     let request = URLRequest(url: url as! URL)
     let task = self.session.dataTask(with: request as! URLRequest){(data,response,error) in
+        var errorString = ""
         guard error == nil else {
-            completionHandlerForGet("", (error?.localizedDescription)!)
+            errorString = (error?.localizedDescription)!
+            completionHandlerForGet("", errorString)
             return
         }
         
@@ -145,16 +148,24 @@ func getForUdacity(urlAsString: String, completionHandlerForGet: @escaping(_ res
             return
         }
         
+        let range = Range(5...data.count)
+        let newData = NSString(data: data.subdata(in: range), encoding: String.Encoding.utf8.rawValue)
+        
+        guard let newdata = newData?.data(using: String.Encoding.utf8.rawValue) else {
+            return
+        }
+        
         var parsedJSON: [String : Any]!
+        
         do{
-            parsedJSON = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String : Any]
+            parsedJSON = try JSONSerialization.jsonObject(with: newdata, options: .allowFragments) as! [String : Any]
         }
         catch {
             print("Could not parse data in the get method.")
             return
         }
         
-        completionHandlerForGet(parsedJSON, error as! String)
+        completionHandlerForGet(parsedJSON, errorString)
         
     }
     task.resume()

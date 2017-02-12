@@ -9,7 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     //==================================================
     // MARK: Outlets
     //==================================================
@@ -21,13 +21,13 @@ class LoginViewController: UIViewController {
     //==================================================
     // MARK: Lifecycle Functions
     //==================================================
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-
+    
     //==================================================
     // MARK: Actions
     //==================================================
@@ -40,14 +40,16 @@ class LoginViewController: UIViewController {
         } else {
             
             let url = Constants.Udacity.sessionURL
-            let httpMessageBody = "{\"udacity\": {\"username\": \"\(self.emailTextField.text)\", \"password\": \"\(self.passwordTextField.text)\"}}"
+            let httpMessageBody = "{\"udacity\": {\"username\": \"\(self.emailTextField.text!)\", \"password\": \"\(self.passwordTextField.text!)\"}}"
             
             Client.shared.postForUdacity(urlAsString: url, httpMessageBody: httpMessageBody, completionHandlerForPost: { (resultsDictionary, error) in
-                guard (error != "") else {
+                guard (error == "") else {
                     if error == "The Internet connection appears to be offline" {
                         //PRESENT ALERTCONTROLLER
+                        print("Error in post")
                     } else {
                         //PRESENT ALERTCONTROLLER
+                        print("Error in post")
                     }
                     
                     return
@@ -70,24 +72,30 @@ class LoginViewController: UIViewController {
                 }
                 
                 Constants.Udacity.sessionID = sessionID
-                
+            
                 guard let accountData = data["account"] as? [String : Any] else {
                     // Present Error.
                     return
                 }
                 
-                Client.shared.getForUdacity(urlAsString: url, completionHandlerForGet: { (resultsDictionary, error) in
-                    guard error == "" else {
+                guard let userID = accountData["key"] as? String else {
+                    return
+                }
+                Constants.Udacity.userID = userID
+                
+                Client.shared.getForUdacity(urlAsString: Constants.Udacity.userDetailsURL, completionHandlerForGet: { (resultsDictionary, error) in
+                    
+                    guard (error == "") else {
                         //Present error.
                         return
                     }
                     
                     guard let data = resultsDictionary as? [String : Any] else {
-                        //Present error.
+                        // Present error.
                         return
                     }
                     
-                    guard let user = data["user"] as? [String: Any] else {
+                    guard let user = data["user"] as? [String : Any] else {
                         return
                     }
                     
@@ -104,10 +112,11 @@ class LoginViewController: UIViewController {
                     Client.shared.getStudentLocationsFromParse(completionHandlerForLocations: { (success, error) in
                         if success {
                             DispatchQueue.main.async {
+                                
                                 self.instantiateMapVC()
                             }
                         } else {
-                            // Present error
+                            //Present error
                         }
                     })
                 })
@@ -116,10 +125,10 @@ class LoginViewController: UIViewController {
     }
     
     
-    @IBAction func signUpButtonTapped(_ sender: Any) {
-        
-        
-    }
+        @IBAction func signUpButtonTapped(_ sender: Any) {
+    
+    
+        }
     
     
     //==================================================
@@ -130,5 +139,5 @@ class LoginViewController: UIViewController {
         let destVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarViewController") as! UITabBarController
         self.present(destVC, animated: true, completion: nil)
     }
-
+    
 }

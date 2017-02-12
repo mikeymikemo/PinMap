@@ -21,6 +21,8 @@ struct Constants {
         static var firstName = "firstName"
         static var lastName = "lastName"
         static let sessionURL = "https://www.udacity.com/api/session"
+        static var userID = ""
+        static let userDetailsURL = "https://www.udacity.com/api/users/\(Constants.Udacity.userID)"
     }
 
     struct Parse {
