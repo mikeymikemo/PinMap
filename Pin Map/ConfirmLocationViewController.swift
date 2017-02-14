@@ -84,8 +84,10 @@ class ConfirmLocationViewController: UIViewController {
                 guard let data = data as? [String : Any] else {
                     return
                 }
+                print(data)
                 
                 guard let objectId = data["objectId"] as? String else {
+                    
                     return
                 }
                 
