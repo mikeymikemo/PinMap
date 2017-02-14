@@ -121,7 +121,7 @@ func postForUdacity(urlAsString: String, httpMessageBody: String, completionHand
     request.addValue(Constants.Extensions.json, forHTTPHeaderField: "Content-Type")
             request.httpBody = httpMessageBody.data(using: String.Encoding.utf8)
     
-      let task = URLSession.shared.dataTask(with: request as URLRequest){(data,response,error) in
+      let task = self.session.dataTask(with: request as URLRequest){(data,response,error) in
         
         var errorString = ""
         guard error == nil else {
@@ -164,7 +164,7 @@ func getForUdacity(urlAsString: String, completionHandlerForGet: @escaping(_ res
     
     let url = NSURL(string: urlAsString)
     let request = URLRequest(url: url as! URL)
-    let task = self.session.dataTask(with: request as! URLRequest){(data,response,error) in
+    let task = self.session.dataTask(with: request ){(data,response,error) in
         var errorString = ""
         guard error == nil else {
             errorString = (error?.localizedDescription)!
@@ -199,4 +199,84 @@ func getForUdacity(urlAsString: String, completionHandlerForGet: @escaping(_ res
     }
     task.resume()
 }
+    
+    func postForParse(urlAsString: String, httpMessageBody: String, completionHandlerForPost: @escaping (_ resultsDictionary: Any, _ error: String) -> Void) {
+        
+        let url = NSURL(string: urlAsString)
+        var request = URLRequest(url: url as! URL)
+        request.httpMethod = Constants.HTTPMethods.post
+        request.addValue(Constants.Parse.AppicationID, forHTTPHeaderField: Constants.Parse.httpHeaderID)
+        request.addValue(Constants.Parse.APIKey, forHTTPHeaderField: Constants.Parse.httpHeaderAPI)
+        request.httpBody = httpMessageBody.data(using: String.Encoding.utf8)
+        
+        let task = self.session.dataTask(with: request) { (data, response, error) in
+            
+            var errorString = ""
+            guard error == nil else {
+                completionHandlerForPost("", errorString)
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            let range = Range(0...data.count)
+            let newData = NSString(data:data.subdata(in: range), encoding: String.Encoding.utf8.rawValue)
+            
+            guard let newdata = newData?.data(using: String.Encoding.utf8.rawValue) else {
+                return
+            }
+            
+            var parsedJSON: [String : Any]
+            do {
+                parsedJSON = try JSONSerialization.jsonObject(with: newdata, options: .allowFragments) as! [String : Any]
+            }
+            catch {
+                return
+            }
+            completionHandlerForPost(parsedJSON, errorString)
+        }
+        task.resume()
+    }
+    
+    func putForParse(urlAsString: String, httpMessageBody: String, completionHandlerForPut: @escaping (_ resultsDictionary: Any, _ error: String)-> Void) {
+        
+        let url = NSURL(string: urlAsString)
+        var request = URLRequest(url: url as! URL)
+        request.httpMethod = Constants.HTTPMethods.post
+        request.addValue(Constants.Parse.AppicationID, forHTTPHeaderField: Constants.Parse.httpHeaderID)
+        request.addValue(Constants.Parse.APIKey, forHTTPHeaderField: Constants.Parse.httpHeaderAPI)
+        request.httpBody = httpMessageBody.data(using: String.Encoding.utf8)
+        
+        let task = self.session.dataTask(with: request) { (data, response, error) in
+            
+            var errorString = ""
+            guard error == nil else {
+                completionHandlerForPut("", errorString)
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            let range = Range(5...data.count)
+            let newData = NSString(data:data.subdata(in: range), encoding: String.Encoding.utf8.rawValue)
+            
+            guard let newdata = newData?.data(using: String.Encoding.utf8.rawValue) else {
+                return
+            }
+            
+            var parsedJSON: [String : Any]
+            do {
+                parsedJSON = try JSONSerialization.jsonObject(with: newdata, options: .allowFragments) as! [String : Any]
+            }
+            catch {
+                return
+            }
+            completionHandlerForPut(parsedJSON, errorString)
+        }
+        task.resume()
+    }
 }
