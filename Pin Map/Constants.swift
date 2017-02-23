@@ -24,6 +24,7 @@ struct Constants {
         static var userID = ""
         static let userDetailsURL = "https://www.udacity.com/api/users/\(Constants.Udacity.userID)"
         static let httpMessageBodyForUpdatingList = "{\"uniqueKey\": \"\(Constants.Udacity.userID)\", \"firstName\": \"\(Constants.Udacity.firstName)\", \"lastName\": \"\(Constants.Udacity.lastName)\",\"mapString\": \"\(Constants.Map.enteredLocation!)\", \"mediaURL\": \"\(Constants.Map.enteredURL!)\",\"latitude\": \(Constants.Map.latitude!), \"longitude\": \(Constants.Map.longitude!)}"
+        static let httpMessageBodyForUpdate = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}"
     }
 
     struct Parse {
@@ -31,6 +32,8 @@ struct Constants {
         static let prefix = "https://"
         static let httpHeaderID = "X-Parse-Application-Id"
         static let httpHeaderAPI = "X-Parse-REST-API-Key"
+        static let contentType = "application/json"
+        static let forHTTPHeaderField = "Content-Type"
         static let APIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         static let AppicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
         static let APIHost = "parse.udacity.com"

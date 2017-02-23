@@ -48,10 +48,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     //present error.
                 }
             } else {
-                    //present error.
-                }
+                //present error.
             }
         }
+    }
     
     
     @IBAction func pinButtonTapped(_ sender: Any) {
@@ -113,11 +113,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if let latitude = location["latitude"] as? Double {
                 if let longitude = location["longitude"] as? Double {
                     
+                    var firstName = "NIL"
+                    var lastName  = "NIL"
+                    
+                    if let first = location["firstName"] as? String {
+                        firstName = first
+                    }
+                    
+                    if let last = location["lastName"] as? String {
+                        lastName = last
+                    }
+
                     let latDegrees = CLLocationDegrees(latitude)
                     let longDegrees = CLLocationDegrees(longitude)
                     let coordinate = CLLocationCoordinate2D(latitude: latDegrees, longitude: longDegrees)
-                    let firstName = location["firstName"] as! String
-                    let lastName = location["lastName"] as! String
                     let mediaURL = location["mediaURL"] as! String
                     
                     let annotation = MKPointAnnotation()

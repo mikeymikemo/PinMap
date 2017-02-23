@@ -75,6 +75,7 @@ class ConfirmLocationViewController: UIViewController {
         
         if Constants.Parse.objectID == "" {
             Client.shared.postForParse(urlAsString: Constants.Parse.studentLocationURL, httpMessageBody: Constants.Udacity.httpMessageBodyForUpdatingList, completionHandlerForPost: { (data, error) in
+            
                 
                 guard error == "" else {
                     //Handle error.

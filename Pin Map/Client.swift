@@ -136,6 +136,8 @@ func postForUdacity(urlAsString: String, httpMessageBody: String, completionHand
         
         let newData = NSString(data: data.subdata(in: range), encoding: String.Encoding.utf8.rawValue)
         
+        print(" postForUdacity newData: \(newData)")
+        
         guard let newdata = newData?.data(using: String.Encoding.utf8.rawValue) else
         {
             print("unable to convert to data")
@@ -207,13 +209,23 @@ func getForUdacity(urlAsString: String, completionHandlerForGet: @escaping(_ res
         request.httpMethod = Constants.HTTPMethods.post
         request.addValue(Constants.Parse.AppicationID, forHTTPHeaderField: Constants.Parse.httpHeaderID)
         request.addValue(Constants.Parse.APIKey, forHTTPHeaderField: Constants.Parse.httpHeaderAPI)
+        request.addValue(Constants.Parse.contentType, forHTTPHeaderField: Constants.Parse.forHTTPHeaderField)
         request.httpBody = httpMessageBody.data(using: String.Encoding.utf8)
+        
+        // TODO: verify all parameters are correct - use print statements to display to console
+        // urlAsString
+        
+        print("postForParse urlAsString: \(urlAsString)")
+        
+        
+        // httpMessageBody
+        print("postForParse httpMessageBody: \(httpMessageBody)")
         
         let task = self.session.dataTask(with: request) { (data, response, error) in
             
             var errorString = ""
             guard error == nil else {
-                completionHandlerForPost("", errorString)
+                completionHandlerForPost("", "error is not nil")
                 return
             }
             
@@ -221,12 +233,16 @@ func getForUdacity(urlAsString: String, completionHandlerForGet: @escaping(_ res
                 return
             }
             
+            
+            
             let range = Range(0...data.count)
             let newData = NSString(data:data.subdata(in: range), encoding: String.Encoding.utf8.rawValue)
             
             guard let newdata = newData?.data(using: String.Encoding.utf8.rawValue) else {
                 return
             }
+            
+            print("postForParse newData: \(newData)")
             
             var parsedJSON: [String : Any]
             do {

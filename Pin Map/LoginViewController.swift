@@ -95,6 +95,8 @@ class LoginViewController: UIViewController {
                         return
                     }
                     
+                    print("loginViewController getForUdacity: \(resultsDictionary)")
+                    
                     guard let user = data["user"] as? [String : Any] else {
                         return
                     }
