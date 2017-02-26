@@ -42,8 +42,11 @@ class ConfirmLocationViewController: UIViewController {
     @IBAction func confirmButtonTapped(_ sender: Any) {
         self.updateListOfStudentLocations { (success) in
             if success {
+                
+                DispatchQueue.main.async {
                 let startingVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarViewController")
                 self.present(startingVC!, animated: true, completion: nil)
+                }
             }
         }
     }

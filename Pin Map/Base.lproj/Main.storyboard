@@ -192,7 +192,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sss-by-hI6">
-                                <rect key="frame" x="19.5" y="192" width="281" height="57"/>
+                                <rect key="frame" x="19" y="192" width="282" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Sss-by-hI6" secondAttribute="height" multiplier="213:43" id="TGx-It-S4H"/>
                                 </constraints>
@@ -201,13 +201,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Website" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pLd-MR-3yZ">
-                                <rect key="frame" x="19.5" y="257" width="281" height="56.5"/>
+                                <rect key="frame" x="19" y="257" width="282" height="56.5"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vQ8-fR-VeN">
-                                <rect key="frame" x="19.5" y="321.5" width="281" height="57"/>
+                                <rect key="frame" x="19" y="321.5" width="282" height="57"/>
                                 <color key="backgroundColor" red="0.0091119781140000002" green="0.70185786490000002" blue="0.8939476609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Find Location">
@@ -298,13 +298,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ESp-ed-f0Y">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentCell" id="ESp-ed-f0Y" customClass="StudentInfoTableViewCell" customModule="Pin_Map" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ESp-ed-f0Y" id="2oI-4B-jFE">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mappin" translatesAutoresizingMaskIntoConstraints="NO" id="f5A-dm-xEk">
+                                            <rect key="frame" x="8" y="8" width="27.5" height="27.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="f5A-dm-xEk" secondAttribute="height" multiplier="1:1" id="rKr-HY-aUM"/>
+                                            </constraints>
+                                        </imageView>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name of Student goes here!" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6gY-mc-ASw">
+                                            <rect key="frame" x="43.5" y="0.0" width="268.5" height="43"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="f5A-dm-xEk" firstAttribute="top" secondItem="2oI-4B-jFE" secondAttribute="top" constant="8" id="AGM-On-BBD"/>
+                                        <constraint firstAttribute="bottom" secondItem="f5A-dm-xEk" secondAttribute="bottom" constant="8" id="MwL-Hb-wS2"/>
+                                        <constraint firstItem="6gY-mc-ASw" firstAttribute="leading" secondItem="f5A-dm-xEk" secondAttribute="trailing" constant="8" id="Wdl-UZ-K2c"/>
+                                        <constraint firstAttribute="bottom" secondItem="6gY-mc-ASw" secondAttribute="bottom" id="XnV-A0-Q8D"/>
+                                        <constraint firstItem="f5A-dm-xEk" firstAttribute="leading" secondItem="2oI-4B-jFE" secondAttribute="leading" constant="8" id="blA-Mr-Esd"/>
+                                        <constraint firstItem="f5A-dm-xEk" firstAttribute="centerY" secondItem="2oI-4B-jFE" secondAttribute="centerY" id="kXs-aB-2aq"/>
+                                        <constraint firstAttribute="trailing" secondItem="6gY-mc-ASw" secondAttribute="trailing" constant="8" id="yJa-cb-Yit"/>
+                                        <constraint firstItem="6gY-mc-ASw" firstAttribute="top" secondItem="2oI-4B-jFE" secondAttribute="top" id="zh5-uK-s09"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameTextField" destination="6gY-mc-ASw" id="H0w-VU-KTT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -326,7 +353,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hsv-k8-K7Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="866" y="419"/>
+            <point key="canvasLocation" x="864.375" y="418.3098591549296"/>
         </scene>
         <!--Item-->
         <scene sceneID="KIj-xN-5cw">
@@ -368,6 +395,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="mappin" width="128" height="128"/>
         <image name="udacity_share-46db4b8faf075a5af5a1070a7fa0ad3639783609ff45f447e4ea467fe3aa9d32" width="1200" height="630"/>
     </resources>
     <inferredMetricsTieBreakers>
